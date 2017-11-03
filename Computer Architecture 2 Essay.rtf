@@ -1,0 +1,41 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red27\green31\blue34;}
+{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18039;}
+\margl1440\margr1440\vieww18060\viewh17960\viewkind1
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1. \cf2 \expnd0\expndtw0\kerning0
+The minimum seek time for an HDD is 9msec, and the maximum seek time is 90msec. The block size of this HDD is 4KB. How long on average does it take to read 100MB of data?\
+\cf0 \kerning1\expnd0\expndtw0 \
+To find the average amount of time to read a certain amount of data, one would need to have the average read time. Assuming that the real average is exactly halfway between the given maximum seek time (90 ms) and the given minimum seek time (9 ms), the average seek time of this particular hdd would be 49.5 ms. The total read time for 100 MB would be ~20.625 minutes (I was not sure on this question).\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+2. \cf2 \expnd0\expndtw0\kerning0
+Describe a TCP/IP packet in detail. Describe the header, how many bytes it is, and which components it contains. What data can come after the header?\
+\
+\cf0 \kerning1\expnd0\expndtw0 A TCP/IP packet is the fundamental piece of data transfer that allows files to be split into pieces, sent from the host, and reassembled on the receiving end. The commonly documented size limitation on a packet is 64 KB (actually, 65535 bytes), but can be smaller. There are two parts in a packet, and each packet contains both: the header and the data. The header is a vital group of information that includes protocol version (IPv4/IPv6), packet size, source, destination, TTL (Time To Live), and checksum. Out of the maximum ~64 KB, between 20 and 60 bytes are reserved for the header. For an IPv4 address, there are 13 mandatory fields with an optional (and infrequently used) 14th field that will inevitably increase the header size.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+3. \cf2 \expnd0\expndtw0\kerning0
+How does the network protocol guarantee that a TCP/IP packet is complete after transmission?\
+\
+\cf0 \kerning1\expnd0\expndtw0 When data are sent along a network, each packet has information revealing the destination and the origin. In the off-chance that one or more packets are damaged/missing, the TCP requests another transmission of these packets. It verifies the data in the packet header to make sure the protocol type (IPv4/IPv6), packet size, sequence number, and checksum are all included and correct. This is to rebuild the packets into the desired information after transmission. The transmission cannot be completed, however, until every single sequence number has a good checksum.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+4. \cf2 \expnd0\expndtw0\kerning0
+What is the difference between TCP and IP?\
+\
+When it comes to TCP (Transmission Control Protocol) and IP (Internet Protocol), they are the two foundational protocols in the IPS (Internet Protocol Suite - AKA TCP/IP - AKA DoD model). Both protocols in the IPS function on different levels of the OSI (Open Systems Interconnection) model. TCP is a component of the transport layer, whereas IP is part of the Network layer. TCP is a protocol that prioritizes reliability over \cf2 latency reduction\cf2 . It operates on a host to host basis, error-checking to make sure that the desired pieces of data (packets) have been delivered successfully. The data may be damaged/out of order, or may not even show up. In these cases, the TCP will request that the sender re-transmit the necessary data. Upon successful completion, the TCP will re-order the information to be correct and useful. IP, on the other hand, is responsible for the formatting of these packets and provides a system of virtual \'93addresses\'94 (IP addresses surprisingly enough) to know exactly where the information should be sent. A joke was made during the development of TCP/IP to emphasize the reliability of the protocols saying that it can run over \'93two tin cans and a string.\'94\
+\
+\cf0 \kerning1\expnd0\expndtw0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+5. \cf2 \expnd0\expndtw0\kerning0
+Why is 3d performance so much higher with a graphics card than without? Modern CPUs are extremely fast, what is limiting their performance?\
+\
+There is actually not a single reason that a GPU offers better 3d performance than a CPU. First of all, an average GPU will typically operate out-of-the-box at a higher rate than an average CPU by design. Although a 3 GHz clock-speed may perform worse than a 2 GHz clock-speed due to inferior architecture, this is 
+\i generally
+\i0  not the case. Typically, newer processors have shown a recent trend in which the graphics engine is integrated into the CPU without a dedicated GPU. This is a more economical approach when performance is not an issue. This saves you on cost, required electricity, and heat generated. Obviously, this is not an ideal setup when you need any sort of serious power. In this case, the system\'92s own RAM would be shared as opposed to a separate Graphics RAM, which is, by design, made to be much faster than a typical RAM would be. Also, to sum up the main difference in inherent design (according to en.bitcoin.it) between a CPU and a GPU, a CPU is built to be an executive, while a GPU is built to be a laborer. A GPU and an CPU can both perform math, etc. But a CPU is meant to make decisions as its main function, whereas a GPU is built with more Arithmetic/Logic Units (ALUs). This allows it to do loads of repetitive operations, such as video processing and bulky mathematical operations. This is because the ALUSs are partitioned into different groups sharing the same \'93management,\'94 making them very good at doing one perfectly synchronized thing as an entire group, but they cannot do more than one thing at a time. This is advantageous since a \'93trivial\'94 task won\'92t be handled by the GPU (such as peripheral functions), forcing an interruption. Also, multiple ALUs means multiple parallel tasks. But, this holds them back a little because while the CPU is similar to a small group of smart people overseeing, the CPU is like a huge group of dumb people that do the same thing so long as no decisions are being made (also according to the same article on en.bitcoin.it). Keeping this in mind, a graphics card typically consists of multiple GPUs with multiple cores apiece, whereas a CPU has a single core. A GPU will also have a much higher bandwidth to the Graphics RAM. }
